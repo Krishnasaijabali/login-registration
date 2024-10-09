@@ -8,7 +8,6 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('http://172.16.16.25:8080/Login', {
@@ -16,8 +15,13 @@ const Login = () => {
       password: password
     })
     .then(response => {
-      alert(response.data);
-      setIsLoggedIn(true);
+        if(response.data==="Login successful!"){
+            setIsLoggedIn(true);
+            alert(response.data);
+        }else {
+            setIsLoggedIn(false);
+            alert("Invalid credentials");
+        }
       // You can store the authentication token or handle redirect
       // localStorage.setItem('token', response.data.token);
       // axios.get('/api/protected', {
